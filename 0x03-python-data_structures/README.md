@@ -1,2 +1,1 @@
-This repository contains all the projects under the second section of ALX program. It handles all Python code projects
-Here are more python projects on data structures and algorithms
+A README YEAH

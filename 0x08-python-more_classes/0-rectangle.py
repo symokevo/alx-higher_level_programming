@@ -1,7 +1,12 @@
 #!/usr/bin/python3
-"""Defines a Rectangle class."""
+
+"""This module contains `Rectangle` class."""
 
 
 class Rectangle:
-    """Represent a rectangle."""
+    """Use this class to create rectangles.
+
+    Example:
+        >>> rect = Rectangle()
+    """
     pass

@@ -1,6 +1,8 @@
 #!/usr/bin/python3
+
+
 def element_at(my_list, idx):
-    if idx not in range(0, len(my_list)):
+    invalid = idx < 0 or idx >= len(my_list)
+    if invalid:
         return None
     return my_list[idx]
-    
