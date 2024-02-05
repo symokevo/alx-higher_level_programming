@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
-for c in 'abcdefghijklmnopqrstuvwxyz':
-    if c != 'e' and c != 'q':
-        print("{}".format(c), end="")
+for alphabet in range(97, 123):
+    if alphabet != 113 and alphabet != 101:
+        print("{:c}".format(alphabet), end='')
