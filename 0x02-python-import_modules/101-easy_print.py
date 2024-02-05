@@ -1,2 +1,2 @@
 #!/usr/bin/python3
-import _write
+import python_is_cool
