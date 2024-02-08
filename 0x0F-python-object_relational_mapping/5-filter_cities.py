@@ -1,36 +1,17 @@
 #!/usr/bin/python3
-"""Executes a SELECT statement using MySQLdb module."""
-import MySQLdb
+"""
+lists all cities of that state, using the database hbtn_0e_4_usa
+"""
 import sys
+import MySQLdb
 
-
-def main():
-    """Entry point"""
-    DB_HOST = 'localhost'
-    DB_USER = sys.argv[1]
-    DB_PASSWD = sys.argv[2]
-    DB_NAME = sys.argv[3]
-    DB_PORT = 3306
-    SEARCH = sys.argv[4]
-
-    db = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD,
-                         db=DB_NAME, port=DB_PORT)
-    cur = db.cursor()
-    sql = "SELECT cities.name FROM cities JOIN states ON\
-           states.id=cities.state_id WHERE states.name=%s\
-           ORDER BY cities.id ASC"
-    cur.execute(sql, (SEARCH, ))
-    rows = cur.fetchall()
-
-    i = 0
-    for row in rows:
-        if i != 0:
-            print(end=", ")
-        for col in row:
-            print(col, end="")
-        i += 1
-    print()
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("""SELECT * FROM cities
+                INNER JOIN states
+                ON cities.state_id = states.id
+                ORDER BY cities.id""")
+    print(", ".join([city[2]
+                     for city in c.fetchall()
+                     if city[4] == sys.argv[4]]))

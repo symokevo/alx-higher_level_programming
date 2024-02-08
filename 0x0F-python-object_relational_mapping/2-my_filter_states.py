@@ -1,35 +1,20 @@
 #!/usr/bin/python3
-"""Executes a SELECT statement using MySQLdb module.
-Selecting only states that start with N
+""" takes in an argument
+    and displays all values
+    in the states table of
+    hbtn_0e_0_usa where name matches the argument
+     Usage: ./2-my_filter_states.py <mysql username>
+                                    <mysql password>
+                                    <database name>
+                                    <state name searched>
 """
-import MySQLdb
 import sys
+import MySQLdb
 
-
-def main():
-    """Entry point"""
-
-    DB_HOST = 'localhost'
-    DB_USER = sys.argv[1]
-    DB_PASSWD = sys.argv[2]
-    DB_NAME = sys.argv[3]
-    SEARCH = sys.argv[4]
-    DB_PORT = 3306
-
-    try:
-        db = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD,
-                             db=DB_NAME, port=DB_PORT)
-        cur = db.cursor()
-        sql = "SELECT id, name FROM states WHERE name= BINARY '{}' \
-            ORDER BY id ASC".format(SEARCH)
-        cur.execute(sql)
-        for row in cur.fetchall():
-            print(row)
-        cur.close()
-        db.close()
-    except Exception:
-        pass
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("""SELECT * FROM states
+                WHERE name LIKE BINARY '{}'
+                ORDER BY states.id ASC""".format(sys.argv[4]).strip("'"))
+    [print(state) for state in c.fetchall()]

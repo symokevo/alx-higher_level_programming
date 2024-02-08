@@ -1,32 +1,14 @@
 #!/usr/bin/python3
-"""Executes a SELECT statement using MySQLdb module.
-Selecting only states that start with N
 """
-import MySQLdb
+displays all values in the states table of
+ hbtn_0e_0_usa where name matches the argument
+"""
+
 import sys
+import MySQLdb
 
-
-def main():
-    """Entry point"""
-
-    DB_HOST = 'localhost'
-    DB_USER = sys.argv[1]
-    DB_PASSWD = sys.argv[2]
-    DB_NAME = sys.argv[3]
-    SEARCH = sys.argv[4]
-    DB_PORT = 3306
-
-    db = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASSWD,
-                         db=DB_NAME, port=DB_PORT)
-    cur = db.cursor()
-    sql = "SELECT id, name FROM states WHERE name=%s \
-           ORDER BY id ASC"
-    cur.execute(sql, (SEARCH, ))
-    for row in cur.fetchall():
-        print(row)
-    cur.close()
-    db.close()
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("""SELECT * FROM states""")
+    [print(state) for state in c.fetchall() if state[1] == sys.argv[4]]
