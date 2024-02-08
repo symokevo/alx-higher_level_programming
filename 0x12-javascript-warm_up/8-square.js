@@ -1,15 +1,11 @@
 #!/usr/bin/node
-
-const size = parseInt(process.argv[2]);
-
+const { argv } = require('process');
+const size = Number(argv[2]);
+const repeat = 'X'.repeat(size);
 if (isNaN(size)) {
   console.log('Missing size');
 } else {
-  for (let row = 0; row < size; row++) {
-    let line = '';
-    for (let col = 0; col < size; col++) {
-      line += 'X';
-    }
-    console.log(line);
+  for (let i = 0; i < size; i++) {
+    console.log(repeat);
   }
 }
