@@ -1,15 +1,13 @@
-const $ = window.$;
-$(function () {
-  const list = $('UL.my_list');
-
-  $('DIV#add_item').on('click', function () {
-    list.append('<li>Item</li>');
+window.addEventListener('DOMContentLoaded', function () {
+  $('DIV#add_item').click(function () {
+    $('<li>Item</li>').appendTo('UL.my_list');
   });
-  $('DIV#remove_item').on('click', function () {
-    list.children().last().remove();
+  $('DIV#remove_item').click(function () {
+    $('.my_list li').last().remove();
   });
-
-  $('DIV#clear_list').on('click', function () {
-    list.empty();
+  $('DIV#clear_list').click(function () {
+    $('.my_list li').map(function () {
+      this.remove();
+    });
   });
 });
